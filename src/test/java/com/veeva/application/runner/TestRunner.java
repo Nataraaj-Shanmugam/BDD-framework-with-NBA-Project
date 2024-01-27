@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @CucumberOptions(
         features = "src/test/java/com/veeva/application/feature",
         glue = "com.veeva.application.stepDefinition",
-        plugin = { "pretty", "html:target/cucumber-reports"}
+        plugin = { "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm", "pretty", "html:target/cucumber-reports"}
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 

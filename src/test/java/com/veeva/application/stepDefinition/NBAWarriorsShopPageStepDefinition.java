@@ -31,7 +31,7 @@ public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
     @Then("Collect data for {string} {string} in {string}")
     public void collectDataOfEachProduct(String category, String productType, String browser) {
         String filePath = category+" "+productType+" product details in "+browser+".txt";
-        nbaWarriorsShopPageActions.getAllProductData(filePath);
+//        nbaWarriorsShopPageActions.getAllProductData(filePath);
         nbaWarriorsShopPageActions.attachToReport(filePath);
     }
 

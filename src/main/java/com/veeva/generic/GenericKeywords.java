@@ -165,11 +165,23 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     public void waitUntilPresent(CustomWebElement customWebElement, Duration seconds) {
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
     }
-
+/*
     @Override
     public void waitUntilURLIsNotEmpty(Duration seconds){
         WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
-        wait.until((ExpectedCondition<Boolean>) webDriver -> !webDriver.getCurrentUrl().isEmpty());
+        wait.until((ExpectedCondition<Boolean>) webDriver -> !webDriver.getCurrentUrl().isEmpty() || !webDriver.getCurrentUrl().equals("about:blank"));
+    }*/
+
+    @Override
+    public void waitUntilURLIsNotEmpty(Duration seconds){
+        int count = (int) (seconds.toMillis()/500);
+        do{
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }while (!getDriver().getCurrentUrl().contains("//") && count-- >= 0);
     }
 
     /**

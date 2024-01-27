@@ -1,15 +1,16 @@
 package com.veeva.application.pages;
 
-import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.application.objectRepository.NBAWarriorsShopPageObjects;
 import com.veeva.generic.GenericKeywords;
+import com.veeva.utility.ReporterUtilities;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class NBAWarriorsShopPageActions extends GenericKeywords {
 
@@ -52,8 +53,13 @@ public class NBAWarriorsShopPageActions extends GenericKeywords {
         writeToFile(builder.toString(), filePathWithName);
     }
 
-    @Attachment
+    public void attachToReport(String path){
+        ReporterUtilities.attachFileToAllureReport(path, "Product Details");
+    }
+
+/*
+    @Attachment(value = "File Attachment", type = "application/octet-stream")
     public File attachToReport(String path){
         return new File(path);
-    }
+    }*/
 }
