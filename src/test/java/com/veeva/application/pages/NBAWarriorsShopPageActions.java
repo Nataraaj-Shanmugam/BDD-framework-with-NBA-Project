@@ -1,15 +1,16 @@
 package com.veeva.application.pages;
 
-import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.application.objectRepository.NBAWarriorsShopPageObjects;
 import com.veeva.generic.GenericKeywords;
+import com.veeva.utility.ReporterUtilities;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class NBAWarriorsShopPageActions extends GenericKeywords {
 
@@ -30,6 +31,7 @@ public class NBAWarriorsShopPageActions extends GenericKeywords {
 
     public void getAllProductData(String filePathWithName){
         StringBuilder builder = new StringBuilder();
+        ReporterUtilities.log("Collect Price, Title, and TopSeller Message for the respective category and product");
         builder.append("Price, Title, Top Seller Comments \n");
         while(true){
             for(WebElement getElement: getElements(nbaWarriorsShopPageObjects.eachProduct_element)){
@@ -52,8 +54,7 @@ public class NBAWarriorsShopPageActions extends GenericKeywords {
         writeToFile(builder.toString(), filePathWithName);
     }
 
-    @Attachment
-    public File attachToReport(String path){
-        return new File(path);
+    public void attachToReport(String path){
+        ReporterUtilities.attachFileToAllureReport(path, path);
     }
 }

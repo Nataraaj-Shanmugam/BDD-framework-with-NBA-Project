@@ -1,11 +1,11 @@
 NBA get product details:
   Browser:
     - Chrome
-    - Firefox
+#    - Firefox
   Stage:
-#    -
-#      category: Men's
-#      productType: Jackets
     -
       category: Men's
-      productType: Hats
+      productType: Jackets
+#    -
+#      category: Men's
+#      productType: Hats

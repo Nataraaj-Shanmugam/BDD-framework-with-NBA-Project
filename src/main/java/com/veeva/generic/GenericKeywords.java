@@ -12,6 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -55,10 +56,12 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
                 break;
         }
         threadLocalImplementation.setWebDriverThreadLocal(driver);
+        ReporterUtilities.log("Launch "+browser);
     }
 
     @Override
     public void closeBrowsers() {
+        ReporterUtilities.log("Close all browser");
         getDriver().quit();
         threadLocalImplementation.removeDriver();
     }
@@ -66,6 +69,7 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     @Override
     public void loadUrl(String url) {
         getDriver().get(url);
+        ReporterUtilities.log("load url "+url);
     }
 
     @Override
@@ -164,6 +168,24 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     public void waitUntilPresent(CustomWebElement customWebElement, Duration seconds) {
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
     }
+/*
+    @Override
+    public void waitUntilURLIsNotEmpty(Duration seconds){
+        WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
+        wait.until((ExpectedCondition<Boolean>) webDriver -> !webDriver.getCurrentUrl().isEmpty() || !webDriver.getCurrentUrl().equals("about:blank"));
+    }*/
+
+    @Override
+    public void waitUntilURLIsNotEmpty(Duration seconds){
+        int count = (int) (seconds.toMillis()/500);
+        do{
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }while (!getDriver().getCurrentUrl().contains("//") && count-- >= 0);
+    }
 
     /**
      * Takes a screenshot of the current page.
@@ -198,8 +220,9 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     }
 
     @Override
-    public void switchWindow(String window){
+    public void switchWindow(String window,String name){
         getDriver().switchTo().window(window);
+        ReporterUtilities.log("Switching to window "+name);
     }
 
     @Override
@@ -214,5 +237,6 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ReporterUtilities.log("Writing to a file in "+filePath);
     }
 }

@@ -2,8 +2,11 @@ package com.veeva.application.runner;
 
 import com.veeva.generic.GenericKeywords;
 import com.veeva.generic.ThreadLocalImplementation;
+import com.veeva.utility.ReporterUtilities;
 import com.veeva.utility.TestDataUtility;
+import io.cucumber.java.Before;
 import io.cucumber.testng.*;
+import io.qameta.allure.Allure;
 import org.testng.annotations.*;
 
 import java.util.*;
@@ -12,7 +15,7 @@ import java.util.stream.Collectors;
 @CucumberOptions(
         features = "src/test/java/com/veeva/application/feature",
         glue = "com.veeva.application.stepDefinition",
-        plugin = { "pretty", "html:target/cucumber-reports"}
+        plugin = { "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm","pretty", "html:target/cucumber-reports"}
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
@@ -26,7 +29,8 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
     @BeforeMethod
     public void openBrowser(Object[] executionData){
-        genericKeywords.invokeBrowser(((HashMap<String, String>) ((Object[])(executionData[0]))[1]).get("Browser"));
+        HashMap<String, String> testData = ((HashMap<String, String>) ((Object[])(executionData[0]))[1]);
+        genericKeywords.invokeBrowser(testData.get("Browser"));
     }
 
     @AfterMethod
@@ -46,6 +50,8 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     public void runScenario(Object[] executionData) {
         ThreadLocalImplementation.setTestDataThreadLocal((HashMap<String, String>) executionData[1]);
         new TestNGCucumberRunner(this.getClass()).runScenario(((PickleWrapper) ((Object[])executionData[0])[0]).getPickle());
+//        String uniqueTestName = ((PickleWrapper) ((Object[])executionData[0])[0]).getPickle().getName() + " - " + ThreadLocalImplementation.getTestData().get("Browser");
+//        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName(uniqueTestName));
     }
 
     @Override

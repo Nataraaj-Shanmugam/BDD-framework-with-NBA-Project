@@ -45,9 +45,11 @@ public interface SeleniumKeywords {
 
     void waitUntilPresent(CustomWebElement customWebElement, Duration seconds);
 
+    void waitUntilURLIsNotEmpty(Duration seconds);
+
     byte[] takeScreenshot();
 
-    void switchWindow(String window);
+    void switchWindow(String window,String name);
 
     Set<String> getAllWindows();
 
