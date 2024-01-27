@@ -6,35 +6,66 @@ import com.veeva.utility.ReporterUtilities;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
+import java.util.Set;
 
-public class GenericKeywords implements SeleniumKeywords{
+public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
 
-    ThreadLocalImplementation threadLocalImplementation = new ThreadLocalImplementation();
-    static WebDriverWait wait;
+    static final ThreadLocalImplementation threadLocalImplementation = new ThreadLocalImplementation();
+    static WebDriverWait wait; // need to solutionise
 
     private static final PropertiesUtility properties = new PropertiesUtility();
 
     @Override
-    public void invokeBrowser() {
-        WebDriver driver = switch (properties.getProperty("browser")) {
-            case "Chrome" -> new ChromeDriver();
-            case "Firefox" -> new FirefoxDriver();
-            case "Edge" -> new EdgeDriver();
-            default -> null;
-        };
+    public void invokeBrowser(String browser) {
+        WebDriver driver = null;
+        MutableCapabilities  capabilities;
+        switch (browser){
+            case "Chrome":{
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--disable-notifications");
+                capabilities = chromeOptions;
+                driver = new ChromeDriver((ChromeOptions) capabilities);
+                break;
+            }
+            case "Firefox":
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("--disable-notifications");
+                capabilities = firefoxOptions;
+                driver = new FirefoxDriver((FirefoxOptions) capabilities);
+                break;
+            case "Edge":
+                EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--disable-notifications");
+                capabilities = edgeOptions;
+                driver = new EdgeDriver((EdgeOptions) capabilities);
+                break;
+        }
         threadLocalImplementation.setWebDriverThreadLocal(driver);
     }
 
     @Override
     public void closeBrowsers() {
         getDriver().quit();
+        threadLocalImplementation.removeDriver();
+    }
+
+    @Override
+    public void loadUrl(String url) {
+        getDriver().get(url);
     }
 
     @Override
@@ -44,7 +75,10 @@ public class GenericKeywords implements SeleniumKeywords{
 
     @Override
     public void click(CustomWebElement customWebElement) {
-        waitUntilClickable(customWebElement);
+        this.click(customWebElement,Duration.ofSeconds(5));
+    }
+    public void click(CustomWebElement customWebElement, Duration seconds) {
+        waitUntilClickable(customWebElement, seconds);
         try{
             getElement(customWebElement).click();
             ReporterUtilities.log("Clicked using selenium click on "+customWebElement.getComment());
@@ -83,7 +117,12 @@ public class GenericKeywords implements SeleniumKeywords{
 
     @Override
     public WebElement getElement(CustomWebElement customWebElement) {
-        return customWebElement.getElement();
+        return customWebElement.getWebElement();
+    }
+
+    @Override
+    public List<WebElement> getElements(CustomWebElement customWebElement) {
+        return customWebElement.getWebElements();
     }
 
     @Override
@@ -94,21 +133,36 @@ public class GenericKeywords implements SeleniumKeywords{
     @Override
     public void waitUntilClickable(CustomWebElement customWebElement) {
         waitUntilPresent(customWebElement);
-        wait = wait == null ? new WebDriverWait(getDriver(), Duration.ofSeconds(5)) : wait;
-        wait.until(ExpectedConditions.elementToBeClickable(getElement(customWebElement)));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(getElement(customWebElement)));
+    }
+
+    @Override
+    public void waitUntilClickable(CustomWebElement customWebElement, Duration seconds) {
+        waitUntilPresent(customWebElement, seconds);
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.elementToBeClickable(getElement(customWebElement)));
     }
 
     @Override
     public void waitUntilVisible(CustomWebElement customWebElement) {
         waitUntilPresent(customWebElement);
-        wait = wait == null ? new WebDriverWait(getDriver(), Duration.ofSeconds(5)) : wait;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(getByElement(customWebElement)));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(getByElement(customWebElement)));
+    }
+
+
+    @Override
+    public void waitUntilVisible(CustomWebElement customWebElement, Duration seconds) {
+        waitUntilPresent(customWebElement, seconds);
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfElementLocated(getByElement(customWebElement)));
     }
 
     @Override
     public void waitUntilPresent(CustomWebElement customWebElement) {
-        wait = wait == null ? new WebDriverWait(getDriver(), Duration.ofSeconds(5)) : wait;
-        wait.until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5)).until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
+    }
+
+    @Override
+    public void waitUntilPresent(CustomWebElement customWebElement, Duration seconds) {
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
     }
 
     /**
@@ -116,8 +170,49 @@ public class GenericKeywords implements SeleniumKeywords{
      *
      * @return A byte array representing the screenshot in PNG format.
      */
+    @Override
     @Attachment(type = "image/png")
     public byte[] takeScreenshot() {
         return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
+    }
+
+    @Override
+    public Set<String> getAllWindows(){
+        return getDriver().getWindowHandles();
+    }
+
+    @Override
+    public String getCurrentUrl(){
+        return getDriver().getCurrentUrl();
+    }
+
+    @Override
+    public String getWindowName(){
+        return getDriver().getWindowHandle();
+    }
+
+    @Override
+    public void hoverOn(CustomWebElement customWebElement){
+        new Actions(getDriver()).moveToElement(customWebElement.getWebElement()).perform();
+        ReporterUtilities.log("Moved to/Hover on "+customWebElement.getComment());
+    }
+
+    @Override
+    public void switchWindow(String window){
+        getDriver().switchTo().window(window);
+    }
+
+    @Override
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+
+    @Override
+    public void writeToFile(String content, String filePath){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

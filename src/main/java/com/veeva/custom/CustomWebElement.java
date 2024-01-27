@@ -1,9 +1,12 @@
 package com.veeva.custom;
 
+import com.veeva.generic.GenericKeywords;
 import com.veeva.generic.Locators;
 import com.veeva.generic.ThreadLocalImplementation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class CustomWebElement {
 
@@ -11,18 +14,34 @@ public class CustomWebElement {
     String element;
     String comment;
 
-    CustomWebElement(Locators locatorType, String element, String comment){
+    public CustomWebElement(Locators locatorType, String element, String comment){
         this.locatorType = locatorType;
         this.element = element;
         this.comment = comment;
     }
 
+    public CustomWebElement updateCustomWebElement(String element, String comment){
+        this.element = element.isEmpty() ? this.element : element;
+        this.comment = comment.isEmpty() ? this.comment : comment;
+        return this;
+    }
+
+    public String getElement() {
+        return this.element;
+    }
+
+
+
     private WebElement webElement;
     private By byElement;
-    static ThreadLocalImplementation threadLocalImplementation = new ThreadLocalImplementation();
 
-    public WebElement getElement() {
-        return webElement == null ? generateWebElement() : webElement;
+    public WebElement getWebElement() {
+//        return webElement == null ? generateWebElement() : webElement;
+        return generateWebElement();
+    }
+
+    public  List<WebElement> getWebElements() {
+        return generateWebElements();
     }
 
     public String getComment() {
@@ -34,7 +53,11 @@ public class CustomWebElement {
     }
 
     private WebElement generateWebElement(){
-        return threadLocalImplementation.getWebDriver().findElement(setByElement());
+        return new GenericKeywords().getDriver().findElement(setByElement());
+    }
+
+    private List<WebElement> generateWebElements(){
+        return new GenericKeywords().getDriver().findElements(setByElement());
     }
 
     public By getByElement(){
