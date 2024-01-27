@@ -3,12 +3,14 @@ package com.veeva.utility;
 import com.veeva.generic.GenericKeywords;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import io.qameta.allure.model.Status;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import static io.qameta.allure.Allure.step;
 
@@ -18,10 +20,11 @@ public class ReporterUtilities {
 
     @Step("{0}")
     public static void log(String comment){
-
+        Allure.step(comment);
+        logger.log(Level.INFO, comment);
     }
 
-    /**
+     /**
      * Updates the test status in the Allure report and takes a screenshot.
      * Logs the test status using Log4j. If the test status is not 'PASSED',
      * it logs as info, otherwise, it logs as an error.
@@ -44,5 +47,4 @@ public class ReporterUtilities {
             // Handle exceptions
         }
     }
-
 }

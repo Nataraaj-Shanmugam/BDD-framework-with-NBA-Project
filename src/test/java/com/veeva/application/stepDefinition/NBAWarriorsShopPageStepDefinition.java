@@ -23,7 +23,7 @@ public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
     public void navigateToNewlyOpenedWindow() {
         Set<String> getAllWindow = getAllWindows();
         getAllWindow.remove(getWindowName());
-        switchWindow(getAllWindow.iterator().next());
+        switchWindow(getAllWindow.iterator().next(), "Shop tab");
         waitUntilURLIsNotEmpty(Duration.ofSeconds(30));
         Assert.assertTrue(getCurrentUrl().startsWith("https://shop.warriors.com/"));
     }
@@ -31,7 +31,7 @@ public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
     @Then("Collect data for {string} {string} in {string}")
     public void collectDataOfEachProduct(String category, String productType, String browser) {
         String filePath = category+" "+productType+" product details in "+browser+".txt";
-//        nbaWarriorsShopPageActions.getAllProductData(filePath);
+        nbaWarriorsShopPageActions.getAllProductData(filePath);
         nbaWarriorsShopPageActions.attachToReport(filePath);
     }
 

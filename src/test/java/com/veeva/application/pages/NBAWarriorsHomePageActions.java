@@ -4,6 +4,7 @@ import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.generic.GenericKeywords;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -13,6 +14,15 @@ public class NBAWarriorsHomePageActions extends GenericKeywords {
 
     public void waitForAds(){
        waitUntilVisible(nbaWarriorsHomePageObjects.ads_iframe, Duration.ofSeconds(15));
+    }
+
+    public void hoverToMenu(){
+        hoverOn(nbaWarriorsHomePageObjects.menu_options);
+    }
+
+    public void clickNewsAndFeatures(){
+        click(nbaWarriorsHomePageObjects.newsAndFeatures_link);
+        Assert.assertTrue(getCurrentUrl().endsWith("/news"));
     }
 
     public void acceptCookies(){

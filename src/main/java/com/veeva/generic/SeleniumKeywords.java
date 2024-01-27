@@ -49,7 +49,7 @@ public interface SeleniumKeywords {
 
     byte[] takeScreenshot();
 
-    void switchWindow(String window);
+    void switchWindow(String window,String name);
 
     Set<String> getAllWindows();
 
@@ -58,5 +58,11 @@ public interface SeleniumKeywords {
     String getCurrentUrl();
 
     void hoverOn(CustomWebElement customWebElement);
+
+    String getAttributeValue(WebElement element, String attribute);
+
+    String getText(WebElement element);
+
+    void scrollTo(CustomWebElement customWebElement);
 
 }

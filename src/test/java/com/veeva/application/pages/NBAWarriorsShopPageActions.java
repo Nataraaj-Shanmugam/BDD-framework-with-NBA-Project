@@ -54,12 +54,6 @@ public class NBAWarriorsShopPageActions extends GenericKeywords {
     }
 
     public void attachToReport(String path){
-        ReporterUtilities.attachFileToAllureReport(path, "Product Details");
+        ReporterUtilities.attachFileToAllureReport(path, path);
     }
-
-/*
-    @Attachment(value = "File Attachment", type = "application/octet-stream")
-    public File attachToReport(String path){
-        return new File(path);
-    }*/
 }

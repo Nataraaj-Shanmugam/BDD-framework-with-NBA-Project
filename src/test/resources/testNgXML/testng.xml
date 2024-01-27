@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Cucumber Suite">
-    <parameter name="cucumberTags" value="@smoke" />
+    <parameter name="cucumber.filter.tags" value="@bullsFooterLink" />
     <test name="Cucumber Test">
         <classes>
             <class name="com.veeva.application.runner.TestRunner"/>

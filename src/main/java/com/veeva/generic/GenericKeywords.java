@@ -20,7 +20,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
@@ -34,32 +38,40 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     public void invokeBrowser(String browser) {
         WebDriver driver = null;
         MutableCapabilities  capabilities;
-        switch (browser){
-            case "Chrome":{
+        if(browser.equals("Random")){
+            String[] browsers = new String[]{"Chrome", "Firefox", "Edge"};
+            browser = browsers[new Random().nextInt(browsers.length)];
+        }
+        switch (browser) {
+            case "Chrome" -> {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--disable-notifications");
+                chromeOptions.addArguments("--start-maximized");
                 capabilities = chromeOptions;
                 driver = new ChromeDriver((ChromeOptions) capabilities);
-                break;
             }
-            case "Firefox":
+            case "Firefox" -> {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--disable-notifications");
+                firefoxOptions.addArguments("--start-maximized");
                 capabilities = firefoxOptions;
                 driver = new FirefoxDriver((FirefoxOptions) capabilities);
-                break;
-            case "Edge":
+            }
+            case "Edge" -> {
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--disable-notifications");
+                edgeOptions.addArguments("--start-maximized");
                 capabilities = edgeOptions;
                 driver = new EdgeDriver((EdgeOptions) capabilities);
-                break;
+            }
         }
         threadLocalImplementation.setWebDriverThreadLocal(driver);
+        ReporterUtilities.log("Launch "+browser);
     }
 
     @Override
     public void closeBrowsers() {
+        ReporterUtilities.log("Close all browser");
         getDriver().quit();
         threadLocalImplementation.removeDriver();
     }
@@ -67,6 +79,7 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     @Override
     public void loadUrl(String url) {
         getDriver().get(url);
+        ReporterUtilities.log("load url "+url);
     }
 
     @Override
@@ -217,8 +230,19 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     }
 
     @Override
-    public void switchWindow(String window){
+    public String getAttributeValue(WebElement element, String attribute) {
+        return element.getAttribute(attribute);
+    }
+
+    @Override
+    public String getText(WebElement element){
+        return element.getText();
+    }
+
+    @Override
+    public void switchWindow(String window,String name){
         getDriver().switchTo().window(window);
+        ReporterUtilities.log("Switching to window "+name);
     }
 
     @Override
@@ -233,5 +257,39 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ReporterUtilities.log("Writing to a file in "+filePath);
+    }
+
+    @Override
+    public LocalDate formattedDate(String date, String format) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
+    }
+
+    @Override
+    public LocalDate formattedDate(String date) {
+        return LocalDate.parse(date);
+    }
+
+    @Override
+    public long dateDifference(LocalDate date1, LocalDate date2) {
+        return  ChronoUnit.DAYS.between(date1, date2);
+    }
+
+    @Override
+    public void generateCSV(String[][] csvData,String fileName) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (String[] row : csvData) {
+                writer.append(String.join(",", row)).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ReporterUtilities.log("Generated "+fileName);
+    }
+
+    @Override
+    public void scrollTo(CustomWebElement customWebElement){
+     new Actions(getDriver()).scrollToElement(customWebElement.getWebElement()).perform();
+     ReporterUtilities.log("Scrolling to "+customWebElement.getComment());
     }
 }
