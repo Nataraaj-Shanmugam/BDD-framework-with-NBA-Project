@@ -1,21 +1,31 @@
 package com.veeva.utility;
 
-import com.veeva.generic.GenericKeywords;
-
-import java.io.InputStream;
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * Utility class for handling test data.
+ * This class provides methods to read and manage test data from YAML files.
+ */
 public class TestDataUtility {
 
     private static final HashMap<String, List<HashMap<String, String>>> overAllTestData = new HashMap<>();
 
+    /**
+     * Reads test data from a YAML file.
+     *
+     * @return A HashMap containing all the test data.
+     */
     private HashMap<String, Object> readTestData(){
         return new YamlUtility(this.getClass()
                 .getClassLoader()
                 .getResourceAsStream("TestData.yaml")).getAllTestData();
     }
 
+    /**
+     * Sets the test data for the current environment.
+     * The environment is specified in the properties file and is used to determine
+     * which test data to load.
+     */
     public void setTestData() {
         HashMap<String, Object> getAllTestData = readTestData();
         String environment = new PropertiesUtility().getProperty("environment", "Stage");
@@ -34,6 +44,12 @@ public class TestDataUtility {
         }
     }
 
+    /**
+     * Retrieves the test data for a specific test case.
+     *
+     * @param testCase The name of the test case for which to retrieve data.
+     * @return A list of HashMaps, each representing a set of test data for the specified test case.
+     */
     public List<HashMap<String, String>> getTestData(String testCase){
         return overAllTestData.get(testCase);
     }

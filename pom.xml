@@ -7,8 +7,19 @@
     <groupId>org.veeva</groupId>
     <artifactId>Assignment_Veeva</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
+    <properties>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
+        <cucumber-version>7.15.0</cucumber-version>
+        <selenium-version>4.17.0</selenium-version>
+        <log4j-version>3.0.0-beta1</log4j-version>
+        <allure-version>2.25.0</allure-version>
+        <allure-maven-version>2.12.0</allure-maven-version>
+        <snakeYaml-version>2.2</snakeYaml-version>
+        <maven-surefire-version>3.2.5</maven-surefire-version>
+    </properties>
 
+    <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -21,24 +32,30 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testNgXML/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>16</source>
                     <target>16</target>
                 </configuration>
             </plugin>
+            <plugin>
+                    <groupId>io.qameta.allure</groupId>
+                    <artifactId>allure-maven</artifactId>
+                    <version>${allure-maven-version}</version>
+            </plugin>
         </plugins>
     </build>
 
-    <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
-        <cucumber-version>7.15.0</cucumber-version>
-        <selenium-version>4.17.0</selenium-version>
-        <log4j-version>3.0.0-beta1</log4j-version>
-        <allure-version>2.25.0</allure-version>
-        <snakeYaml-version>2.2</snakeYaml-version>
-    </properties>
 
     <dependencies>
         <dependency>

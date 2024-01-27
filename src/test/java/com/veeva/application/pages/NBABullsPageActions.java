@@ -1,23 +1,32 @@
 package com.veeva.application.pages;
 
 import com.veeva.application.objectRepository.NBABullsPageObjects;
-import com.veeva.application.objectRepository.NBAWarriorsNewsPageObjects;
-import com.veeva.generic.GenericKeywords;
+import com.veeva.generic.keywords.GenericKeywords;
 import com.veeva.utility.ReporterUtilities;
-import io.cucumber.java.hu.Ha;
 import org.openqa.selenium.WebElement;
 
-import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Class containing actions that can be performed on the NBA Bulls page.
+ * Extends GenericKeywords to leverage common web interaction methods.
+ */
 public class NBABullsPageActions extends GenericKeywords {
 
-   NBABullsPageObjects nbaBullsPageObjects = new NBABullsPageObjects();
+   private final NBABullsPageObjects nbaBullsPageObjects = new NBABullsPageObjects();
 
+   /**
+    * Scrolls to the footer section of the NBA Bulls page.
+    */
    public void scrollToFooter(){
-       scrollTo(nbaBullsPageObjects.footer_title);
+      scrollTo(nbaBullsPageObjects.footer_title);
    }
 
+   /**
+    * Retrieves all hyperlinks present in the footer of the NBA Bulls page.
+    *
+    * @return A HashMap with the title of the section as the key and a list of hyperlinks as the value.
+    */
    public HashMap<String, List<String>> getAllLinks(){
       Set<String> uniqueHref = new HashSet<>();
       HashMap<String, List<String>> hyperlinks = new HashMap<>();
@@ -36,6 +45,12 @@ public class NBABullsPageActions extends GenericKeywords {
       return hyperlinks;
    }
 
+   /**
+    * Generates a CSV file from the provided hyperlink data.
+    *
+    * @param data     The hyperlink data to be included in the CSV.
+    * @param filename The name of the CSV file to be generated.
+    */
    public void generateCSV(HashMap<String, List<String>> data,String filename){
       String[][] csvData = new String[data.values().stream().max(Comparator.comparingInt(List::size)).get().size()+1][data.size()];
       Arrays.stream(csvData).forEach(row -> Arrays.fill(row, ""));

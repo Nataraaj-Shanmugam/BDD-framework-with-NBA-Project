@@ -3,6 +3,10 @@ package com.veeva.application.objectRepository;
 import com.veeva.custom.CustomWebElement;
 import com.veeva.generic.Locators;
 
+/**
+ * Repository class for object locators of the NBA Warrior News page.
+ * This class holds the locators for various elements on the NBA Warrior News page.
+ */
 public class NBAWarriorsNewsPageObjects {
 
     public CustomWebElement videos_modal = new CustomWebElement(Locators.XPATH, "//h3[text()='VIDEOS']/../..//ul[@data-testid='content-grid-']//li", "Videos modal");

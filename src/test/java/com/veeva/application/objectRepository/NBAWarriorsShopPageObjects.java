@@ -2,7 +2,10 @@ package com.veeva.application.objectRepository;
 
 import com.veeva.custom.CustomWebElement;
 import com.veeva.generic.Locators;
-
+/**
+ * Repository class for object locators of the NBA Warrior Shop page.
+ * This class holds the locators for various elements on the NBA Warrior Shop page.
+ */
 public class NBAWarriorsShopPageObjects {
 
     public CustomWebElement productName_radioButton = new CustomWebElement(Locators.XPATH, "//div[@data-trk-id='all-departments']//ul//span[text()='ProductName']", "ProductName product type");

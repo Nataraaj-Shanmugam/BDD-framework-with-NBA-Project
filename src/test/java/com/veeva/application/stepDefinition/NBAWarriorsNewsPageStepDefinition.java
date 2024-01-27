@@ -4,19 +4,32 @@ import com.veeva.application.pages.NBAWarriorsNewsPageActions;
 import com.veeva.utility.ReporterUtilities;
 import io.cucumber.java.en.Then;
 
+/**
+ * Step definitions for scenarios dealing with the NBA Warriors News page.
+ * This class defines steps for counting videos and determining the number of videos posted within a certain time range.
+ */
 public class NBAWarriorsNewsPageStepDefinition {
 
-    NBAWarriorsNewsPageActions nbaWarriorsNewsPageActions = new NBAWarriorsNewsPageActions();
+    private final NBAWarriorsNewsPageActions nbaWarriorsNewsPageActions = new NBAWarriorsNewsPageActions();
 
+    /**
+     * Counts the total number of videos posted on the NBA Warriors News page and logs the count.
+     */
     @Then("Count overAll videos")
     public void countAllVideos(){
-        ReporterUtilities.log("Overall videos posted : "+ nbaWarriorsNewsPageActions.getAllVideosSize());
+        int videoCount = nbaWarriorsNewsPageActions.getAllVideosSize();
+        ReporterUtilities.log("Overall videos posted: " + videoCount);
     }
 
-
+    /**
+     * Counts the number of videos posted within a specified number of days on the NBA Warriors News page.
+     * The count is logged for reporting purposes.
+     *
+     * @param numberOfDays The range in days to filter the video count.
+     */
     @Then("Count videos {string} days")
     public void countVideosInRange(String numberOfDays){
-        ReporterUtilities.log("Videos posted "+numberOfDays+" days : "+nbaWarriorsNewsPageActions.videosPostedInRange(numberOfDays));
+        int videoCount = nbaWarriorsNewsPageActions.videosPostedInRange(numberOfDays);
+        ReporterUtilities.log("Videos posted in " + numberOfDays + " days: " + videoCount);
     }
-
 }

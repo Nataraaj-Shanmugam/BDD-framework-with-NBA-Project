@@ -7,11 +7,10 @@ Feature: NBA Warrior
     Then Navigate to footer
     Then Get all footer links
     Then Export to csv file
-    And Teardown
 
     Examples:
       | Browser |
-      | Chrome  |
+#      | Chrome  |
 #      | Random  |
-#      | Edge    |
+      | Edge    |
 #      | Firefox    |

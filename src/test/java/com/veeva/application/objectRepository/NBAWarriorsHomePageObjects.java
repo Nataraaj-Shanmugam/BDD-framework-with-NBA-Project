@@ -3,6 +3,10 @@ package com.veeva.application.objectRepository;
 import com.veeva.custom.CustomWebElement;
 import com.veeva.generic.Locators;
 
+/**
+ * Repository class for object locators of the NBA Warrior Home page.
+ * This class holds the locators for various elements on the NBA Warrior Home page.
+ */
 public class NBAWarriorsHomePageObjects {
 
     public CustomWebElement preSales_Modal_CloseButton = new CustomWebElement(Locators.XPATH, "//div[text()='x']", "Pre-Sales modal close button");
