@@ -12,6 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -163,6 +164,12 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     @Override
     public void waitUntilPresent(CustomWebElement customWebElement, Duration seconds) {
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
+    }
+
+    @Override
+    public void waitUntilURLIsNotEmpty(Duration seconds){
+        WebDriverWait wait = new WebDriverWait(getDriver(), seconds);
+        wait.until((ExpectedCondition<Boolean>) webDriver -> !webDriver.getCurrentUrl().isEmpty());
     }
 
     /**

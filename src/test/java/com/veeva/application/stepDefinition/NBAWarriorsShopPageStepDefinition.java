@@ -7,6 +7,7 @@ import com.veeva.generic.ThreadLocalImplementation;
 import io.cucumber.java.en.Then;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.Set;
 
 public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
@@ -14,8 +15,6 @@ public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
 
     @Then("Select {string} product")
     public void selectProduct(String productType) {
-        loadUrl("https://shop.warriors.com/golden-state-warriors-men/t-14145130+ga-67+z-978556-2897172570");
-        productType = ThreadLocalImplementation.getTestData().get("productType");
         nbaWarriorsShopPageActions.selectProduct(productType);
         nbaWarriorsShopPageActions.validateSelectedProducts(productType);
     }
@@ -25,12 +24,13 @@ public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
         Set<String> getAllWindow = getAllWindows();
         getAllWindow.remove(getWindowName());
         switchWindow(getAllWindow.iterator().next());
+        waitUntilURLIsNotEmpty(Duration.ofSeconds(30));
         Assert.assertTrue(getCurrentUrl().startsWith("https://shop.warriors.com/"));
     }
 
-    @Then("Collect data of each product")
-    public void collectDataOfEachProduct() {
-        String filePath = ThreadLocalImplementation.getTestData().get("category")+" "+ThreadLocalImplementation.getTestData().get("productType")+" product details.txt";
+    @Then("Collect data for {string} {string} in {string}")
+    public void collectDataOfEachProduct(String category, String productType, String browser) {
+        String filePath = category+" "+productType+" product details in "+browser+".txt";
         nbaWarriorsShopPageActions.getAllProductData(filePath);
         nbaWarriorsShopPageActions.attachToReport(filePath);
     }
