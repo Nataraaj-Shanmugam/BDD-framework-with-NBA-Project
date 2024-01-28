@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check if 'NoDeploy' keyword is present in commit message
         run: |
-          if [[ ${{ github.event.head_commit.message}} == *'NoDeploy'* ]]; then
+          if [[ $(git log --format=%B -n 1 ${{ github.sha }}) == *'NoDeploy'* ]]; then
             echo "NoDeploy keyword found in the commit message. Exiting workflow."
             exit 78  # Exit with a neutral status code (78) to indicate skipping the workflow.
           fi
