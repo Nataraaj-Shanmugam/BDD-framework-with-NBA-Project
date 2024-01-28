@@ -54,3 +54,13 @@ JavaDoc for the source code is available here:
 
 ## Contact
 If you have any questions or comments about the project, please open an issue in the GitHub repository.
+
+## Next Phase
+Next set of ehancements
+1. Generate Dynamic feature file examples, based on externals source Testdata
+2. Auto-healing [Healenium](https://healenium.io/)
+3. Integrate with [Google Lighthouse]([https://healenium.io/](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?pli=1)) for web page performance Testing
+4. Adding capabilities
+    1. Support for Selenium 4 Relative locators
+    2. Network Interceptor
+    3. Runtime mocking
