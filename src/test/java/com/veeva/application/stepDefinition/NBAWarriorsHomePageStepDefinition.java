@@ -1,5 +1,6 @@
 package com.veeva.application.stepDefinition;
 
+import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.application.pages.NBAWarriorsHomePageActions;
 import com.veeva.generic.keywords.GenericKeywords;
 import com.veeva.utility.ReporterUtilities;
@@ -18,6 +19,9 @@ import org.openqa.selenium.TimeoutException;
  * navigating to specific sections, and handling post-scenario activities.
  */
 public class NBAWarriorsHomePageStepDefinition extends GenericKeywords {
+
+    /** Constructs a new instance of the {@link NBAWarriorsHomePageStepDefinition} class. */
+    public NBAWarriorsHomePageStepDefinition(){}
 
     private final NBAWarriorsHomePageActions nbaWarriorsHomePageActions = new NBAWarriorsHomePageActions();
 

@@ -1,5 +1,6 @@
 package com.veeva.application.stepDefinition;
 
+import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.application.pages.NBAWarriorsShopPageActions;
 import com.veeva.generic.keywords.GenericKeywords;
 import io.cucumber.java.en.Then;
@@ -13,6 +14,9 @@ import java.util.Set;
  * This class provides the steps to select products, navigate between windows, and collect product data.
  */
 public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
+
+    /** Constructs a new instance of the {@link NBAWarriorsShopPageStepDefinition} class. */
+    public NBAWarriorsShopPageStepDefinition(){}
 
     private final NBAWarriorsShopPageActions nbaWarriorsShopPageActions = new NBAWarriorsShopPageActions();
 

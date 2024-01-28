@@ -35,6 +35,9 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     static final ThreadLocalImplementation threadLocalImplementation = new ThreadLocalImplementation();
     private static final PropertiesUtility properties = new PropertiesUtility();
 
+    /** Constructs a new instance of the {@link GenericKeywords} class. */
+    public GenericKeywords(){}
+
     /**
      * Invokes a browser based on the provided browser type. Supports Chrome, Firefox, and Edge.
      * If "Random" is passed as a parameter, a random browser type will be selected.

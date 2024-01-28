@@ -14,6 +14,9 @@ import java.time.Duration;
  */
 public class NBAWarriorsHomePageActions extends GenericKeywords {
 
+    /** Constructs a new instance of the {@link NBAWarriorsHomePageActions} class. */
+    public NBAWarriorsHomePageActions(){}
+
     private final NBAWarriorsHomePageObjects nbaWarriorsHomePageObjects = new NBAWarriorsHomePageObjects();
 
     /**

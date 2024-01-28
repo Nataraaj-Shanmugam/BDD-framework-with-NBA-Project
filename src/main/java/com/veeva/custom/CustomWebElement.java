@@ -19,7 +19,7 @@ public class CustomWebElement {
     String comment;
 
     /**
-     * Constructor for creating a new CustomWebElement.
+     * Constructor for creating a new {@link CustomWebElement}.
      *
      * @param locatorType The type of locator (ID, XPATH, CLASSNAME, CSS, TAGNAME, LINKTEXT).
      * @param element The locator value.

@@ -1,5 +1,6 @@
 package com.veeva.application.stepDefinition;
 
+import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.application.pages.NBABullsPageActions;
 import com.veeva.utility.ReporterUtilities;
 import io.cucumber.java.en.Then;
@@ -14,6 +15,11 @@ import java.util.*;
  * This class defines steps for various actions like navigating to the footer, getting links, and exporting data to CSV.
  */
 public class NBABullsPageStepDefinition {
+
+
+    /** Constructs a new instance of the {@link NBABullsPageStepDefinition} class. */
+    public NBABullsPageStepDefinition(){}
+
 
     private final NBABullsPageActions bullsPageActions = new NBABullsPageActions();
 

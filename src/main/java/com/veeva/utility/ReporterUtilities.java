@@ -20,6 +20,9 @@ public class ReporterUtilities {
 
     private static final Logger logger = LoggerUtility.getLogger(ReporterUtilities.class);
 
+    /** Constructs a new instance of the {@link ReporterUtilities} class. */
+    public ReporterUtilities(){    }
+
     /**
      * Logs a comment both to the Allure report and Log4j logger.
      *

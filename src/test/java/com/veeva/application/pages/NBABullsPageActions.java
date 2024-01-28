@@ -1,6 +1,7 @@
 package com.veeva.application.pages;
 
 import com.veeva.application.objectRepository.NBABullsPageObjects;
+import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.generic.keywords.GenericKeywords;
 import com.veeva.utility.ReporterUtilities;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,10 @@ import java.util.*;
  * Extends GenericKeywords to leverage common web interaction methods.
  */
 public class NBABullsPageActions extends GenericKeywords {
+
+
+   /** Constructs a new instance of the {@link NBABullsPageActions} class. */
+   public NBABullsPageActions(){}
 
    private final NBABullsPageObjects nbaBullsPageObjects = new NBABullsPageObjects();
 

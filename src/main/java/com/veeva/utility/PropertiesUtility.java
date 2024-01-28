@@ -11,7 +11,7 @@ public class PropertiesUtility {
     private final Properties properties;
 
     /**
-     * Constructor for PropertiesUtility.
+     * Constructor for {@link PropertiesUtility}.
      * Loads properties from a file named 'configurations.properties' located in the resources folder.
      */
     public PropertiesUtility(){

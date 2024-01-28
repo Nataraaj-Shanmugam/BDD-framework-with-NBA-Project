@@ -11,6 +11,9 @@ import java.util.HashMap;
  */
 public class ThreadLocalImplementation {
 
+    /** Constructs a new instance of the {@link ThreadLocalImplementation} class. */
+    public ThreadLocalImplementation(){}
+
     private final ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
 
     /**

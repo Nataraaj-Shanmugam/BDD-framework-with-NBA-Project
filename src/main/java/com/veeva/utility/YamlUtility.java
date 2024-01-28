@@ -13,7 +13,7 @@ public class YamlUtility {
     private static HashMap<String, Object> yaml;
 
     /**
-     * Constructor for YamlUtility.
+     * Constructor for {@link YamlUtility}.
      * Loads the YAML data from the provided InputStream.
      *
      * @param inputStream InputStream of the YAML file.

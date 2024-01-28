@@ -9,7 +9,8 @@ import java.util.*;
 public class TestDataUtility {
 
     private static final HashMap<String, List<HashMap<String, String>>> overAllTestData = new HashMap<>();
-
+    /** Constructs a new instance of the {@link TestDataUtility} class. */
+    public TestDataUtility(){}
     /**
      * Reads test data from a YAML file.
      *

@@ -1,5 +1,6 @@
 package com.veeva.application.pages;
 
+import com.veeva.application.objectRepository.NBAWarriorsHomePageObjects;
 import com.veeva.application.objectRepository.NBAWarriorsNewsPageObjects;
 import com.veeva.generic.keywords.GenericKeywords;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,9 @@ import java.time.LocalDate;
  * Extends GenericKeywords to leverage common web interaction methods.
  */
 public class NBAWarriorsNewsPageActions extends GenericKeywords {
+
+    /** Constructs a new instance of the {@link NBAWarriorsNewsPageActions} class. */
+    public NBAWarriorsNewsPageActions(){}
 
     private final NBAWarriorsNewsPageObjects nbaWarriorsNewsPageObjects = new NBAWarriorsNewsPageObjects();
 

@@ -10,6 +10,9 @@
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
+        <maven-javadoc-version>3.6.3</maven-javadoc-version>
+        <maven-report-version>3.5.0</maven-report-version>
+        <maven-site-version>4.0.0-M13</maven-site-version>
         <cucumber-version>7.15.0</cucumber-version>
         <selenium-version>4.17.0</selenium-version>
         <log4j-version>3.0.0-beta1</log4j-version>
@@ -32,6 +35,81 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-version}</version>
+
+                <executions>
+                    <!--  <execution>
+                         <id>main-javadoc</id>
+                         <goals>
+                             <goal>javadoc</goal>
+                         </goals>
+                         <phase>generate-resources</phase>
+                         <configuration>
+                             <sourcepath>${project.build.sourceDirectory}</sourcepath>
+                             <useStandardDocletOptions>true</useStandardDocletOptions>
+                             <outputDirectory>${project.build.directory}/main-javadoc</outputDirectory>
+                         </configuration>
+                     </execution>
+                     <execution>
+                         <id>test-javadoc</id>
+                         <goals>
+                             <goal>javadoc</goal>
+                         </goals>
+                         <phase>generate-test-resources</phase>
+                         <configuration>
+                             <sourcepath>${project.build.testSourceDirectory}</sourcepath>
+                             <useStandardDocletOptions>true</useStandardDocletOptions>
+                             <outputDirectory>${project.build.directory}/test-javadoc</outputDirectory>
+                         </configuration>
+                     </execution>-->
+
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+           <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>merge-javadoc</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                &lt;!&ndash; Use the <javadoc> task to merge JavaDoc &ndash;&gt;
+                                <javadoc destdir="${project.build.directory}/site/combined-javadoc">
+                                    <sourcepath>${project.build.directory}/site/apidocs</sourcepath>
+                                    <sourcepath>${project.build.directory}/site/testapidocs</sourcepath>
+                                </javadoc>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-report-version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-version}</version>
                 <configuration>
@@ -49,15 +127,35 @@
                 </configuration>
             </plugin>
             <plugin>
-                    <groupId>io.qameta.allure</groupId>
-                    <artifactId>allure-maven</artifactId>
-                    <version>${allure-maven-version}</version>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven-version}</version>
             </plugin>
         </plugins>
     </build>
 
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>${maven-report-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>${maven-site-version}</version>
+        </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
