@@ -63,7 +63,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-version}</version>
                 <configuration>
-                    <argLine>${surefireArgLine} -Xmx1024m -noverify -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj}/aspectjweaver-${aspectj}.jar"</argLine>
+                    <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj}/aspectjweaver-${aspectj}.jar"</argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testNgXML/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
