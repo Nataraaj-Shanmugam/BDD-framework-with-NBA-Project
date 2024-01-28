@@ -36,7 +36,7 @@ jobs:
           sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./apidocs/index.html'\''>BDD Framework</a><br><a href='\''./testapidocs/index.html'\''>NBA Test Project</a></td>' ./target/site/summary.html
 
       - name: Deploy to GitHub Pages
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.TOKEN_1 }}
-            publish_dir: ./target/site/
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN_1 }}
+          publish_dir: ./target/site/
