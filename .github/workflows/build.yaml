@@ -33,7 +33,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN_1 }}
-          publish_dir: |
-#            ./target/site/main-javadoc
-#            ./target/site/test-javadoc
-            ./target/site/
+          publish_dir: ./target/site/
