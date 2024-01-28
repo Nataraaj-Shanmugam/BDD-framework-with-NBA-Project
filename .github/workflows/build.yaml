@@ -16,6 +16,7 @@ jobs:
             echo "NoDeploy keyword found in the commit message. Exiting workflow."
             exit 78  # Exit with a neutral status code (78) to indicate skipping the workflow.
           fi
+
       - uses: actions/checkout@v2
 
       - name: Set up JDK 21

@@ -16,9 +16,6 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
  * It initializes Log4j with a custom layout and a console appender.
  */
 public class LoggerUtility {
-  /*  static {
-        initializeLog4j();
-    }*/
 
     /**
      * Default constructor for {@link LoggerUtility}.
@@ -48,9 +45,9 @@ public class LoggerUtility {
 
         config.addAppender(appender);
 
-        LoggerConfig loggerConfig = new LoggerConfig("Default", Level.INFO, false);
+        LoggerConfig loggerConfig = new LoggerConfig("Default", Level.DEBUG, false);
         loggerConfig.addAppender(appender, null, null);
-
+        config.getRootLogger().setLevel(Level.DEBUG);
         config.addLogger("Default", loggerConfig);
         ctx.updateLoggers(config);
     }
