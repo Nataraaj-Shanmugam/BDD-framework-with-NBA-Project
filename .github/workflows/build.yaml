@@ -26,18 +26,17 @@ jobs:
       - name: Generate Site
         run: mvn -B site
 
-      - name: Print before summary.html
-        run: cat ./target/site/summary.html
+      - name: Rename Folders
+        run: |
+          mv ./target/site/apidocs ./target/site/BDD-Framework
+          mv ./target/site/testapidocs ./target/site/NBA-Project
 
       - name: Modify Specific HTML
         run: |
-          sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./apidocs/index.html'\''>Main Documentation</a><br><a href='\''./testapidocs/index.html'\''>Test Documentation</a></td>' ./target/site/summary.html
-
-      - name: Print after summary.html
-        run: cat ./target/site/summary.html
+          sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./apidocs/index.html'\''>BDD Framework</a><br><a href='\''./testapidocs/index.html'\''>NBA Test Project</a></td>' ./target/site/summary.html
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.TOKEN_1 }}
-          publish_dir: ./target/site/
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.TOKEN_1 }}
+            publish_dir: ./target/site/
