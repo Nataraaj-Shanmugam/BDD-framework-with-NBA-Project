@@ -33,7 +33,7 @@ jobs:
 
       - name: Modify Specific HTML
         run: |
-          sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./apidocs/index.html'\''>BDD Framework</a><br><a href='\''./testapidocs/index.html'\''>NBA Test Project</a></td>' ./target/site/summary.html
+          sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./BDD-Framework/index.html'\''>BDD Framework</a><br><a href='\''./NBA-Project/index.html'\''>NBA Test Project</a></td>' ./target/site/summary.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
