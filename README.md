@@ -39,6 +39,10 @@ To set up the project locally, follow these steps:
    ```
    mvn test -Dcucumber.filter.tags="@smoke"
    ```
+4. Generate report through allure command (install allure, if not)
+   ```
+   allure serve allure-results
+   ```
 
 ## Documentation
 Further documentation is available on the Maven site:
