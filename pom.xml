@@ -4,9 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <developers>
+        <developer>
+            <name>Nataraaj Shanmugam</name>
+            <roles><role>Lead SDET</role></roles>
+            <url>https://www.linkedin.com/in/nataraajshanmugam-sdet/</url>
+            <timezone>IST</timezone>
+        </developer>
+    </developers>
+    <description>This is assessment project for Veeva Systems Inc. and developed based on BDD flavoured</description>
     <groupId>org.veeva</groupId>
-    <artifactId>Assignment_Veeva</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>Assignment</artifactId>
+    <version>1.0</version>
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
@@ -67,6 +76,8 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testNgXML/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
+<!--                    <parallel>methods</parallel>-->
+<!--                    <threadCount>2</threadCount>-->
                 </configuration>
                 <dependencies>
                     <dependency>
