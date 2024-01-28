@@ -1,4 +1,4 @@
-name: Build and Deploy JavaDoc
+name: Build and Deploy JavaDoc, and Site
 
 on:
   push:
@@ -34,6 +34,6 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN_1 }}
           publish_dir: |
-            ./target/site/main-javadoc
-            ./target/site/test-javadoc
+#            ./target/site/main-javadoc
+#            ./target/site/test-javadoc
             ./target/site/
