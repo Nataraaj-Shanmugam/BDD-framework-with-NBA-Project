@@ -18,23 +18,20 @@ jobs:
           java-version: 21
 
       - name: Generate JavaDoc
-        run: mvn javadoc:javadoc
-
-      - name: Build Test Javadocs
-        run: mvn -B javadoc:test-javadoc
+        run: |
+          mvn javadoc:javadoc
+          mvn -B javadoc:test-javadoc
 
       - name: Generate Site
         run: mvn -B site
 
-      - name: Print before summary.html
-        run: cat ./target/site/summary.html
-
-      - name: Modify Specific HTML
+      - name: Rename folder and Modify Specific HTML
         run: |
-          sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./apidocs/index.html'\''>Main Documentation</a><br><a href='\''./testapidocs/index.html'\''>Test Documentation</a></td>' ./target/site/summary.html
-
-      - name: Print after summary.html
-        run: cat ./target/site/summary.html
+          mv ./target/site/apidocs ./target/site/BDD-Framework
+          mv ./target/site/testapidocs ./target/site/NBA-Project
+          sed -i '/<td style="text-align: left;">Homepage<\/td>/a <td style="text-align: left;"><a href='\''./BDD-Framework/index.html'\''>BDD Framework</a><br><a href='\''./NBA-Project/index.html'\''>NBA Test Project</a></td>' ./target/site/summary.html
+          sed -i 's/Assignment \(.*\) API/BDD-Framework \1/' ./target/site/BDD-Framework/index.html
+          sed -i 's/Assignment \(.*\) Test API/NBA-Project \1/' ./target/site/NBA-Project/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
