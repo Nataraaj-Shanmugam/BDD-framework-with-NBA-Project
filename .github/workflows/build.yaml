@@ -3,7 +3,7 @@ name: Build and Deploy JavaDoc, and Site
 on:
   push:
     branches:
-      - gh-pages
+      - cucumber-examples
 
 jobs:
   build:
