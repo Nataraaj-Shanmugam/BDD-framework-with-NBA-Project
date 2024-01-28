@@ -3,7 +3,6 @@ name: Build and Deploy JavaDoc
 on:
   push:
     branches:
-      - master
       - cucumber-examples
 
 jobs:
