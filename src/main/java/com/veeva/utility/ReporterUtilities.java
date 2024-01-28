@@ -28,7 +28,6 @@ public class ReporterUtilities {
      *
      * @param comment The comment to be logged.
      */
-    @Step("{0}")
     public static void log(String comment){
         Allure.step(comment);
         logger.log(Level.INFO, comment);

@@ -3,7 +3,7 @@ name: Build and Deploy JavaDoc, and Site
 on:
   push:
     branches:
-      - cucumber-examples
+      - master
 
 jobs:
   build:
@@ -17,13 +17,11 @@ jobs:
         with:
           java-version: 21
 
-      - name: Generate JavaDoc
+      - name: Generate JavaDoc and site
         run: |
-          mvn javadoc:javadoc
+          mvn -B javadoc:javadoc
           mvn -B javadoc:test-javadoc
-
-      - name: Generate Site
-        run: mvn -B site
+          mvn -B site
 
       - name: Rename folder and Modify Specific HTML
         run: |

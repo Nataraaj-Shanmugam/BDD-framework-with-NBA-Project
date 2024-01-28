@@ -6,7 +6,7 @@ Feature: NBA Warrior
     Given Open '<Browser>' and load 'NBA Warrior' URL
     When Page is Loaded
     Then Navigate to '<category>' shop now
-    Then Navigate to newly opened window
+    Then Navigate to newly opened window from "Warrior"
     Then Select '<productType>' product
     Then Collect data for '<category>' '<productType>' in '<Browser>'
 

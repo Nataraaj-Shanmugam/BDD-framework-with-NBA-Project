@@ -14,7 +14,7 @@
     </developers>
     <description>This is assessment project for Veeva Systems Inc. and developed based on BDD flavoured</description>
     <groupId>org.veeva</groupId>
-    <artifactId>Assignment</artifactId>
+    <artifactId>BDD-Framework</artifactId>
     <version>1.0</version>
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
@@ -58,11 +58,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-report-version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${maven-site-version}</version>
             </plugin>
@@ -75,8 +70,12 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testNgXML/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-<!--                    <parallel>methods</parallel>-->
-<!--                    <threadCount>2</threadCount>-->
+                    <properties>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>2</value>
+                        </property>
+                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -106,18 +105,8 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${maven-javadoc-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-project-info-reports-plugin</artifactId>
-            <version>${maven-report-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -160,5 +149,4 @@
             <version>${snakeYaml-version}</version>
         </dependency>
     </dependencies>
-
 </project>

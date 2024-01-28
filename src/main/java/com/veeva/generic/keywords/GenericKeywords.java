@@ -284,6 +284,31 @@ public class GenericKeywords implements SeleniumKeywords, NonSeleniumKeywords{
     public void waitUntilPresent(CustomWebElement customWebElement, Duration seconds) {
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfElementLocated(getByElement(customWebElement)));
     }
+
+    /**
+     * Waits for a specified duration until the CustomWebElement is invisible in the DOM.
+     *
+     * @param customWebElement The CustomWebElement to wait for.
+     * @param seconds The duration to wait until the element is present.
+     */
+    @Override
+    public void waitUntilInvisible(CustomWebElement customWebElement, Duration seconds) {
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.invisibilityOfElementLocated(getByElement(customWebElement)));
+    }
+
+    /**
+     * Waits until the specified attribute of the given element becomes the expected value within the specified time duration.
+     *
+     * @param customWebElement The custom web element to check.
+     * @param seconds          The maximum time to wait for the attribute to become the expected value, in seconds.
+     * @param attribute        The name of the attribute to check.
+     * @param value            The expected value of the attribute.
+     * @throws TimeoutException If the attribute does not become the expected value within the specified time.
+     */
+    @Override
+    public void waitUntilAttributePresent(CustomWebElement customWebElement, Duration seconds,String attribute, String value) {
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.domAttributeToBe(customWebElement.getWebElement(), attribute, value));
+    }
 /*
     @Override
     public void waitUntilURLIsNotEmpty(Duration seconds){

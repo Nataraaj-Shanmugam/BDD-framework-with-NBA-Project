@@ -55,7 +55,16 @@ public class NBAWarriorsHomePageStepDefinition extends GenericKeywords {
             loadUrl(getProperty("warriorUrl"));
         } else if("NBA Bulls".equals(productName)) {
             loadUrl(getProperty("bullsURL"));
+        }else if("NBA Sixers".equals(productName)) {
+            loadUrl(getProperty("sixersURL"));
         }
+    }
+
+    //delete todo
+    @Given("Open {string}")
+    public void loadNBAURL(String browser) throws InterruptedException {
+        invokeBrowser(browser);
+        Thread.sleep(10000);
     }
 
     /**

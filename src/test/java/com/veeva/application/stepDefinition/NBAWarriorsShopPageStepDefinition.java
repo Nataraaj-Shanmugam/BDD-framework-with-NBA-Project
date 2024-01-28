@@ -34,13 +34,13 @@ public class NBAWarriorsShopPageStepDefinition extends GenericKeywords {
     /**
      * Navigates to a newly opened window and asserts the URL to confirm successful navigation.
      */
-    @Then("Navigate to newly opened window")
-    public void navigateToNewlyOpenedWindow() {
+    @Then("Navigate to newly opened window from {string}")
+    public void navigateToNewlyOpenedWindow(String name) {
         Set<String> getAllWindow = getAllWindows();
         getAllWindow.remove(getWindowName());
-        switchWindow(getAllWindow.iterator().next(), "Shop tab");
+        switchWindow(getAllWindow.iterator().next(), name.equals("Warrior") ? "Shop tab" : "Match tab");
         waitUntilURLIsNotEmpty(Duration.ofSeconds(30));
-        Assert.assertTrue(getCurrentUrl().startsWith("https://shop.warriors.com/"));
+        Assert.assertTrue(name.equals("Warrior") ? getCurrentUrl().startsWith("https://shop.warriors.com/") : getCurrentUrl().endsWith("watch"));
     }
 
     /**

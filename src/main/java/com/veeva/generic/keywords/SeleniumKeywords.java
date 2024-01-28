@@ -2,6 +2,7 @@ package com.veeva.generic.keywords;
 
 import com.veeva.custom.CustomWebElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -133,7 +134,27 @@ public interface SeleniumKeywords {
      */
     void waitUntilVisible(CustomWebElement customWebElement, Duration seconds);
 
+
     /**
+     * Waits for a specified duration until the CustomWebElement is invisible in the DOM.
+     *
+     * @param customWebElement The CustomWebElement to wait for.
+     * @param seconds The duration to wait until the element is present.
+     */
+    void waitUntilInvisible(CustomWebElement customWebElement, Duration seconds);
+
+    /**
+     * Waits until the specified attribute of the given element becomes the expected value within the specified time duration.
+     *
+     * @param customWebElement The custom web element to check.
+     * @param seconds          The maximum time to wait for the attribute to become the expected value, in seconds.
+     * @param attribute        The name of the attribute to check.
+     * @param value            The expected value of the attribute.
+     * @throws TimeoutException If the attribute does not become the expected value within the specified time.
+     */
+    void waitUntilAttributePresent(CustomWebElement customWebElement, Duration seconds,String attribute, String value);
+
+        /**
      * Waits until the specified CustomWebElement is present in the DOM.
      *
      * @param customWebElement The CustomWebElement to wait for.
