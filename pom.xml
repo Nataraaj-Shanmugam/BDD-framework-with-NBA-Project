@@ -20,6 +20,7 @@
         <allure-maven-version>2.12.0</allure-maven-version>
         <snakeYaml-version>2.2</snakeYaml-version>
         <maven-surefire-version>3.2.5</maven-surefire-version>
+        <aspectj>1.9.21</aspectj>
     </properties>
 
     <build>
@@ -37,67 +38,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-version}</version>
-
                 <executions>
-                    <!--  <execution>
-                         <id>main-javadoc</id>
-                         <goals>
-                             <goal>javadoc</goal>
-                         </goals>
-                         <phase>generate-resources</phase>
-                         <configuration>
-                             <sourcepath>${project.build.sourceDirectory}</sourcepath>
-                             <useStandardDocletOptions>true</useStandardDocletOptions>
-                             <outputDirectory>${project.build.directory}/main-javadoc</outputDirectory>
-                         </configuration>
-                     </execution>
-                     <execution>
-                         <id>test-javadoc</id>
-                         <goals>
-                             <goal>javadoc</goal>
-                         </goals>
-                         <phase>generate-test-resources</phase>
-                         <configuration>
-                             <sourcepath>${project.build.testSourceDirectory}</sourcepath>
-                             <useStandardDocletOptions>true</useStandardDocletOptions>
-                             <outputDirectory>${project.build.directory}/test-javadoc</outputDirectory>
-                         </configuration>
-                     </execution>-->
-
                     <execution>
                         <id>attach-javadocs</id>
-                        <phase>site</phase>
                         <goals>
-                            <goal>aggregate</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
 
             </plugin>
-           <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>merge-javadoc</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                &lt;!&ndash; Use the <javadoc> task to merge JavaDoc &ndash;&gt;
-                                <javadoc destdir="${project.build.directory}/site/combined-javadoc">
-                                    <sourcepath>${project.build.directory}/site/apidocs</sourcepath>
-                                    <sourcepath>${project.build.directory}/site/testapidocs</sourcepath>
-                                </javadoc>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
--->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -113,10 +63,18 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-version}</version>
                 <configuration>
+                    <argLine>${surefireArgLine} -Xmx1024m -noverify -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj}/aspectjweaver-${aspectj}.jar"</argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testNgXML/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
