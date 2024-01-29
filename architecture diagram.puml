@@ -1,0 +1,82 @@
+@startuml
+allowmixing
+
+skinparam backgroundColor #0D1117
+skinparam DefaultFontColor #FFFFFF
+skinparam class {
+    BackgroundColor #2E2E2E
+    BorderColor #FFFFFF
+    ArrowColor #FFFFFF
+}
+skinparam interface {
+    BackgroundColor #2E2E2E
+    BorderColor #FFFFFF
+    ArrowColor #FFFFFF
+}
+skinparam component {
+    BackgroundColor #2E2E2E
+    BorderColor #FFFFFF
+    ArrowColor #FFFFFF
+}
+skinparam actor {
+    BackgroundColor #2E2E2E
+    BorderColor #FFFFFF
+    ArrowColor #FFFFFF
+}
+skinparam note {
+    BackgroundColor #2E2E2E
+    BorderColor #FFFFFF
+    ArrowColor #FFFFFF
+}
+skinparam file {
+    BackgroundColor #2E2E2E
+    BorderColor #FFFFFF
+    ArrowColor #FFFFFF
+}
+
+!define FeatureFile(file, description) class file << (F, Green) >>
+
+component "mvn test" as mvnTest
+actor " " as usr
+actor " " as usr2
+file "POM.xml" as POMxml
+file "testng.xml" as testngxml
+class "Cucumber Runner" as runner
+abstract class "AbstractTestNGCucumberTests" as abstractTestNGCucumberTests
+
+FeatureFile(cucumberFeatureFile, "This is a Gherkin feature file.\nIt contains various scenarios.")
+class "Cucumber Step Definition" as stepDefinition
+class "Page Action" as pageAction
+class "Page Object Repository" as pageObjects
+class "CustomWebElement" as customWE
+
+interface "Selenium Keyword" as seleniumInterface
+interface "Non Selenium Keyword" as nonSeleniumInterface
+class "Generic Keyword" as genericKeywords
+
+class "Reporter" as reporter
+class "Logger" as logger
+
+usr -up-> mvnTest : triggers
+usr2 -right-> testngxml : triggers
+mvnTest -up-> POMxml : reads
+POMxml -up-> testngxml : configures
+testngxml -up-> runner : triggers
+runner -right--> abstractTestNGCucumberTests : extends
+runner -up-> stepDefinition : uses
+runner -left-> cucumberFeatureFile : reads
+stepDefinition -up->  pageAction : calls
+pageAction -right->  pageObjects : interacts with
+pageObjects -up->  customWE : uses
+pageAction -left-> genericKeywords: extends
+genericKeywords -up-> seleniumInterface: implements
+genericKeywords -up-> nonSeleniumInterface: implements
+
+genericKeywords -left-> reporter : uses
+reporter -left-> logger : uses
+
+class "POD Classes" as podClasses
+podClasses -up.-> reporter : can use
+podClasses -up.-> logger : can use
+
+@enduml
