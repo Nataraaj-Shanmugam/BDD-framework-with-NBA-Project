@@ -51,16 +51,22 @@ Further documentation is available on the Maven site:
 JavaDoc for the source code is available here:
 - [BDD Framework JavaDoc](https://nataraaj-shanmugam.github.io/BDD-framework-with-NBA-Project/BDD-Framework/index.html)
 - [NBA Project JavaDoc](https://nataraaj-shanmugam.github.io/BDD-framework-with-NBA-Project/NBA-Project/index.html)
+  
+  
+## Architecture diagram
 
-## Contact
-If you have any questions or comments about the project, please open an issue in the GitHub repository.
+   ![](https://github.com/Nataraaj-Shanmugam/BDD-framework-with-NBA-Project/blob/master/architecture%20diagram.png)
 
 ## Next Phase
-Next set of ehancements
+Below are the next set of enhancements planned
 1. Generate Dynamic feature file examples, based on externals source Testdata
 2. Auto-healing [Healenium](https://healenium.io/)
-3. Integrate with [Google Lighthouse]([https://healenium.io/](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?pli=1)) for web page performance Testing
+3. Integrate with [Google Lighthouse](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?pli=1) for web page performance Testing
 4. Adding capabilities
     1. Support for Selenium 4 Relative locators
     2. Network Interceptor
     3. Runtime mocking
+  
+
+## Contact
+If you have any questions or comments about the project, please open an issue in the GitHub repository.
