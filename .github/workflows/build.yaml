@@ -11,27 +11,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Check if 'NoDeploy' keyword is present in commit message
+
+      - name: Check if 'DontDeploy' keyword is present in commit message
+        id: check_commit_message
         run: |
           # Check if the commit message contains 'DontDeploy'
           if [[ $(git log --format=%B -n 1 ${{ github.sha }}) == *'DontDeploy'* ]]; then
             echo "Commit message contains 'NoDeploy'. Skipping the workflow."
-            exit 0
+            echo "::set-output name=skip_workflow::true"
           fi  
 
       - name: Set up JDK 21
         uses: actions/setup-java@v1
+        if: steps.check_commit_message.outputs.skip_workflow != 'true'
         with:
           java-version: 21
 
       - name: Generate JavaDoc and site
+        if: steps.check_commit_message.outputs.skip_workflow != 'true'
         run: |
           mvn -B javadoc:javadoc
           mvn -B javadoc:test-javadoc
           mvn -B site
 
       - name: Rename folder and Modify Specific HTML
+        if: steps.check_commit_message.outputs.skip_workflow != 'true'
         run: |
           mv ./target/site/apidocs ./target/site/BDD-Framework
           mv ./target/site/testapidocs ./target/site/NBA-Project
@@ -40,6 +44,7 @@ jobs:
           sed -i 's/Assignment \(.*\) Test API/NBA-Project \1/' ./target/site/NBA-Project/index.html
 
       - name: Deploy to GitHub Pages
+        if: steps.check_commit_message.outputs.skip_workflow != 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN_1 }}
