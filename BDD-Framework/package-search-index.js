@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.veeva"},{"l":"com.veeva.custom"},{"l":"com.veeva.generic"},{"l":"com.veeva.generic.keywords"},{"l":"com.veeva.utility"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.framework"},{"l":"com.framework.custom"},{"l":"com.framework.generic"},{"l":"com.framework.generic.keywords"},{"l":"com.framework.utility"}];updateSearchResults();

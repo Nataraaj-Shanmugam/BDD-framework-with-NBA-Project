@@ -1,5 +1,5 @@
-com.veeva
-com.veeva.custom
-com.veeva.generic
-com.veeva.generic.keywords
-com.veeva.utility
+com.framework
+com.framework.custom
+com.framework.generic
+com.framework.generic.keywords
+com.framework.utility
