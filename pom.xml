@@ -12,8 +12,8 @@
             <timezone>IST</timezone>
         </developer>
     </developers>
-    <description>This is assessment project for Veeva Systems Inc. and developed based on BDD flavoured</description>
-    <groupId>org.veeva</groupId>
+    <description>This is a BDD framework with TestNG and datasource as YAML. For demonstrating, using NBA website for automation</description>
+    <groupId>org.nataraaj</groupId>
     <artifactId>BDD-Framework</artifactId>
     <version>1.0</version>
     <properties>
@@ -100,7 +100,6 @@
             </plugin>
         </plugins>
     </build>
-
 
     <dependencies>
         <dependency>
